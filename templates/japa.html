@@ -1,0 +1,1400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pathways Migration — Canada · UK · Australia</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --navy: #5c3d1e;
+        --ink: #3e2f1c;
+        --cream: #f5f0e8;
+        --warm: #ede8dc;
+        --gold: #a07848;
+        --gold-light: #c8a878;
+        --sage: #8c7355;
+        --rust: #9c7a5a;
+        --text: #5c4a32;
+        --muted: #8c7355;
+        --border: rgba(160, 133, 106, 0.3);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Libre Baskerville", Georgia, serif;
+        background: var(--cream);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 4rem;
+        background: rgba(92, 61, 30, 0.96);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--gold);
+        letter-spacing: 0.02em;
+      }
+      .nav-logo span {
+        color: var(--cream);
+        font-style: italic;
+        font-weight: 400;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-family: "Fira Code", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .nav-cta {
+        background: var(--gold);
+        color: var(--navy);
+        border: none;
+        padding: 0.6rem 1.5rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        font-weight: 400;
+        transition: background 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--gold-light);
+      }
+
+      /* ── HERO ── */
+      .hero {
+        min-height: 100vh;
+        background: var(--navy);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 80% at 70% 50%,
+            rgba(201, 168, 76, 0.08) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 40% 60% at 10% 80%,
+            rgba(74, 124, 111, 0.1) 0%,
+            transparent 60%
+          );
+        pointer-events: none;
+      }
+      .hero::after { display: none; }
+
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8rem 4rem 4rem 6rem;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-eyebrow {
+        font-family: "Fira Code", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        display: block;
+        width: 2.5rem;
+        height: 1px;
+        background: var(--gold);
+      }
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        font-weight: 900;
+        line-height: 1.05;
+        color: #fff;
+        margin-bottom: 1.8rem;
+      }
+      .hero-title em {
+        font-style: italic;
+        color: var(--gold);
+        display: block;
+      }
+      .hero-subtitle {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 38ch;
+        margin-bottom: 2.5rem;
+      }
+      .hero-flags {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+      .flag-chip {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        padding: 0.45rem 1rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .flag-emoji {
+        font-size: 1rem;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        background: var(--gold);
+        color: var(--navy);
+        border: none;
+        padding: 0.9rem 2.2rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        font-weight: 400;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-primary:hover {
+        background: var(--gold-light);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        padding: 0.9rem 2.2rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .btn-outline:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .hero-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 4rem 4rem;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-stat-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        padding: 2.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        max-width: 420px;
+        width: 100%;
+      }
+      .stat-cell {
+        background: rgba(92, 61, 30, 0.15);
+        padding: 1.8rem 1.5rem;
+        border: 1px solid rgba(201, 168, 76, 0.1);
+        animation: fadeInUp 0.6s ease both;
+      }
+      .stat-cell:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .stat-cell:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .stat-cell:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .stat-cell:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .stat-num {
+        font-family: "Playfair Display", serif;
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 0.4rem;
+      }
+      .stat-label {
+        font-family: "Fira Code", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── SECTION GENERIC ── */
+      section {
+        padding: 6rem 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 3rem;
+      }
+      .section-label {
+        font-family: "Fira Code", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .section-label::before {
+        content: "";
+        display: block;
+        width: 1.8rem;
+        height: 1px;
+        background: var(--gold);
+      }
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--ink);
+        margin-bottom: 1rem;
+      }
+      .section-sub {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--muted);
+        max-width: 55ch;
+      }
+
+      /* ── DESTINATIONS ── */
+      #destinations {
+        background: var(--warm);
+      }
+      .dest-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+      .dest-header .section-label {
+        justify-content: center;
+      }
+      .dest-header .section-label::before {
+        display: none;
+      }
+      .dest-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+      }
+      .dest-card {
+        position: relative;
+        background: var(--navy);
+        overflow: hidden;
+        transition: transform 0.3s;
+      }
+      .dest-card:hover {
+        transform: translateY(-4px);
+        z-index: 2;
+      }
+      .dest-card-inner {
+        padding: 3rem 2.5rem;
+        position: relative;
+        z-index: 2;
+      }
+      .dest-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .dest-card.canada::before {
+        background: radial-gradient(
+          ellipse at top right,
+          rgba(255, 0, 0, 0.15),
+          transparent 60%
+        );
+      }
+      .dest-card.uk::before {
+        background: radial-gradient(
+          ellipse at top right,
+          rgba(0, 0, 128, 0.2),
+          transparent 60%
+        );
+      }
+      .dest-card.australia::before {
+        background: radial-gradient(
+          ellipse at top right,
+          rgba(255, 165, 0, 0.12),
+          transparent 60%
+        );
+      }
+      .dest-card:hover::before {
+        opacity: 1;
+      }
+
+      .dest-flag {
+        font-size: 3.5rem;
+        margin-bottom: 1.2rem;
+        display: block;
+        animation: float 4s ease-in-out infinite;
+      }
+      .dest-card:nth-child(2) .dest-flag {
+        animation-delay: -1.3s;
+      }
+      .dest-card:nth-child(3) .dest-flag {
+        animation-delay: -2.6s;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+      .dest-name {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.4rem;
+      }
+      .dest-tag {
+        font-family: "Fira Code", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.5rem;
+        display: block;
+      }
+      .dest-desc {
+        font-size: 0.92rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 2rem;
+      }
+      .dest-visas {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .dest-visas li {
+        font-family: "Fira Code", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.6);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .dest-visas li::before {
+        content: "→";
+        color: var(--gold);
+        flex-shrink: 0;
+      }
+
+      /* ── PROCESS ── */
+      #process {
+        background: var(--cream);
+      }
+      .process-layout {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 6rem;
+        align-items: start;
+      }
+      .process-intro {
+        position: sticky;
+        top: 8rem;
+      }
+      .process-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 2rem;
+        padding: 2.5rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        position: relative;
+      }
+      .step:last-child {
+        border-bottom: none;
+      }
+      .step-num {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: var(--border);
+        line-height: 1;
+        transition: color 0.3s;
+        user-select: none;
+      }
+      .step:hover .step-num {
+        color: rgba(201, 168, 76, 0.5);
+      }
+      .step-content {
+      }
+      .step-phase {
+        font-family: "Fira Code", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.4rem;
+      }
+      .step-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 0.8rem;
+      }
+      .step-desc {
+        font-size: 0.92rem;
+        line-height: 1.8;
+        color: var(--muted);
+        margin-bottom: 1rem;
+      }
+      .step-details {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+      .step-details li {
+        font-family: "Fira Code", monospace;
+        font-size: 0.75rem;
+        color: var(--muted);
+        display: flex;
+        gap: 0.5rem;
+        align-items: baseline;
+      }
+      .step-details li::before {
+        content: "·";
+        color: var(--gold);
+      }
+      .step-timeline {
+        margin-top: 1rem;
+        display: inline-block;
+        background: rgba(201, 168, 76, 0.1);
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        padding: 0.25rem 0.7rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+      }
+
+      /* ── WHY US ── */
+      #why {
+        background: var(--navy);
+      }
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        margin-top: 4rem;
+      }
+      .why-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(201, 168, 76, 0.1);
+        padding: 2.5rem 2rem;
+        transition: background 0.3s;
+      }
+      .why-card:hover {
+        background: rgba(201, 168, 76, 0.06);
+      }
+      .why-icon {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+        display: block;
+      }
+      .why-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.8rem;
+      }
+      .why-desc {
+        font-size: 0.9rem;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .why-header .section-title {
+        color: #fff;
+      }
+
+      /* ── ELIGIBILITY ── */
+      #eligibility {
+        background: var(--cream);
+      }
+      .elig-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+      .elig-card {
+        border: 1px solid var(--border);
+        padding: 2.5rem;
+        background: var(--warm);
+        position: relative;
+        overflow: hidden;
+      }
+      .elig-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--gold);
+      }
+      .elig-country {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .elig-route {
+        font-family: "Fira Code", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.5rem;
+      }
+      .elig-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+      .elig-list li {
+        display: flex;
+        gap: 0.7rem;
+        align-items: baseline;
+        font-size: 0.9rem;
+        line-height: 1.55;
+        color: var(--text);
+      }
+      .elig-list li::before {
+        content: "✓";
+        color: var(--sage);
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        font-weight: 700;
+      }
+
+      /* ── CTA ── */
+      #cta {
+        background: var(--gold);
+        padding: 6rem 0;
+      }
+      .cta-inner {
+        text-align: center;
+      }
+      .cta-inner .section-label {
+        justify-content: center;
+        color: var(--navy);
+      }
+      .cta-inner .section-label::before {
+        background: var(--navy);
+      }
+      .cta-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.2rem, 4vw, 3.5rem);
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--navy);
+        margin-bottom: 1rem;
+      }
+      .cta-sub {
+        font-size: 1rem;
+        color: rgba(92, 61, 30, 0.65);
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+      }
+      .cta-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-dark {
+        background: var(--navy);
+        color: var(--gold);
+        border: none;
+        padding: 1rem 2.5rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .btn-dark:hover {
+        background: #0e1f3a;
+      }
+      .btn-white {
+        background: rgba(255, 255, 255, 0.3);
+        color: var(--navy);
+        border: 1px solid rgba(92, 61, 30, 0.2);
+        padding: 1rem 2.5rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .btn-white:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--ink);
+        padding: 3rem;
+        text-align: center;
+      }
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--gold);
+        margin-bottom: 0.6rem;
+      }
+      .footer-logo span {
+        font-style: italic;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .footer-copy {
+        font-family: "Fira Code", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.3);
+        margin-top: 0.5rem;
+      }
+      .footer-disclaimer {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.2);
+        max-width: 60ch;
+        margin: 1.2rem auto 0;
+        line-height: 1.7;
+      }
+
+      /* ── SCROLL ANIMATION ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 900px) {
+        nav {
+          padding: 1rem 1.5rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-right {
+          display: none;
+        }
+        .hero-left {
+          padding: 7rem 2rem 3rem;
+        }
+        .dest-grid {
+          grid-template-columns: 1fr;
+          gap: 2px;
+        }
+        .process-layout {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .process-intro {
+          position: static;
+        }
+        .why-grid {
+          grid-template-columns: 1fr;
+        }
+        .elig-grid {
+          grid-template-columns: 1fr;
+        }
+        .container {
+          padding: 0 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">Pathways<span>Migration</span></div>
+      <ul class="nav-links">
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#eligibility">Eligibility</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="/input">CRS Calculator</a></li>
+      </ul>
+      <a href="/input" class="nav-cta" style="text-decoration:none;">
+        Free Assessment
+      </a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Authorised Immigration Advisors</div>
+        <h1 class="hero-title">
+          Your new life<br />is waiting.<br />
+          <em>We'll guide you there.</em>
+        </h1>
+        <p class="hero-subtitle">
+          Expert immigration services for Canada, the United Kingdom, and
+          Australia. We simplify complex visa processes so you can focus on your
+          future.
+        </p>
+        <div class="hero-flags">
+          <div class="flag-chip"><span class="flag-emoji">🇨🇦</span> Canada</div>
+          <div class="flag-chip">
+            <span class="flag-emoji">🇬🇧</span> United Kingdom
+          </div>
+          <div class="flag-chip">
+            <span class="flag-emoji">🇦🇺</span> Australia
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="/input" class="btn-primary" style="text-decoration:none; display:inline-block;">
+            Check My Eligibility
+          </a>
+          <button
+            class="btn-outline"
+            onclick="
+              document
+                .getElementById('process')
+                .scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            See the Process
+          </button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stat-card">
+          <div class="stat-cell">
+            <div class="stat-num">94%</div>
+            <div class="stat-label">Approval Rate</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">12k+</div>
+            <div class="stat-label">Visas Secured</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Countries</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">18yr</div>
+            <div class="stat-label">Experience</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section id="destinations">
+      <div class="container">
+        <div class="dest-header reveal">
+          <div class="section-label">Where will you go?</div>
+          <h2 class="section-title">Three World-Class Destinations</h2>
+          <p class="section-sub" style="margin: 0 auto">
+            Each country offers unique immigration pathways. We specialise
+            exclusively in these three markets — deep expertise, not broad
+            coverage.
+          </p>
+        </div>
+        <div class="dest-grid">
+          <!-- Canada -->
+          <div class="dest-card canada reveal">
+            <div class="dest-card-inner">
+              <span class="dest-flag">🇨🇦</span>
+              <div class="dest-name">Canada</div>
+              <span class="dest-tag">Points-Based · Provincial Programs</span>
+              <p class="dest-desc">
+                One of the world's most welcoming nations for skilled workers,
+                families, and entrepreneurs. Canada's Express Entry system is
+                globally respected for its transparency.
+              </p>
+              <ul class="dest-visas">
+                <li>Express Entry (Federal Skilled Worker)</li>
+                <li>Provincial Nominee Programs (PNP)</li>
+                <li>Canadian Experience Class (CEC)</li>
+                <li>Family Sponsorship</li>
+                <li>Start-Up Visa Program</li>
+                <li>International Graduate Stream</li>
+              </ul>
+            </div>
+          </div>
+          <!-- UK -->
+          <div class="dest-card uk reveal">
+            <div class="dest-card-inner">
+              <span class="dest-flag">🇬🇧</span>
+              <div class="dest-name">United Kingdom</div>
+              <span class="dest-tag">Sponsor-Based · Skilled Worker Route</span>
+              <p class="dest-desc">
+                Post-Brexit Britain operates a points-based system welcoming
+                talent from across the globe. London and beyond offer remarkable
+                opportunity for qualified professionals.
+              </p>
+              <ul class="dest-visas">
+                <li>Skilled Worker Visa</li>
+                <li>Global Talent Visa</li>
+                <li>Health and Care Worker Visa</li>
+                <li>UK Innovator Founder Visa</li>
+                <li>Graduate Route (post-study)</li>
+                <li>Family Visas</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Australia -->
+          <div class="dest-card australia reveal">
+            <div class="dest-card-inner">
+              <span class="dest-flag">🇦🇺</span>
+              <div class="dest-name">Australia</div>
+              <span class="dest-tag">Points-Tested · State Nomination</span>
+              <p class="dest-desc">
+                Australia's SkillSelect system rewards qualifications and work
+                experience. With strong demand across healthcare, engineering,
+                and trades, pathways remain wide open.
+              </p>
+              <ul class="dest-visas">
+                <li>Skilled Independent (subclass 189)</li>
+                <li>Skilled Nominated (subclass 190)</li>
+                <li>Regional Visa (subclass 491)</li>
+                <li>Employer Nomination Scheme (186)</li>
+                <li>Partner & Spouse Visas</li>
+                <li>Business Innovation Visa</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+      <div class="container">
+        <div class="process-layout">
+          <div class="process-intro reveal">
+            <div class="section-label">How it works</div>
+            <h2 class="section-title">A clear path. No guesswork.</h2>
+            <p class="section-sub">
+              We've helped over 12,000 people relocate successfully. Here's
+              exactly what working with us looks like — from first contact to
+              landing in your new home.
+            </p>
+            <div
+              style="
+                margin-top: 2.5rem;
+                padding: 1.5rem;
+                background: var(--warm);
+                border-left: 3px solid var(--gold);
+              "
+            >
+              <p
+                style="
+                  font-family: &quot;Fira Code&quot;, monospace;
+                  font-size: 0.75rem;
+                  letter-spacing: 0.06em;
+                  color: var(--muted);
+                  line-height: 1.7;
+                "
+              >
+                Average total timeline:<br />
+                <span
+                  style="
+                    font-size: 1.4rem;
+                    color: var(--ink);
+                    font-family: &quot;Playfair Display&quot;, serif;
+                    font-weight: 700;
+                  "
+                  >6 – 18 months</span
+                ><br />
+                depending on visa type and country.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-steps">
+            <div class="step reveal">
+              <div class="step-num">01</div>
+              <div class="step-content">
+                <div class="step-phase">Initial Contact</div>
+                <div class="step-title">Free Eligibility Assessment</div>
+                <p class="step-desc">
+                  Every journey begins with understanding your situation. We
+                  analyse your age, education, work experience, language scores,
+                  and ties to your destination country.
+                </p>
+                <ul class="step-details">
+                  <li>30-minute consultation (video or phone)</li>
+                  <li>Points calculation for relevant visa streams</li>
+                  <li>
+                    Honest advice — we only proceed if your case is strong
+                  </li>
+                  <li>Destination country recommendation</li>
+                </ul>
+                <span class="step-timeline">⏱ Week 1 — Free of charge</span>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step-num">02</div>
+              <div class="step-content">
+                <div class="step-phase">Strategy</div>
+                <div class="step-title">
+                  Immigration Roadmap &amp; Visa Selection
+                </div>
+                <p class="step-desc">
+                  We identify the optimal visa pathway for your profile —
+                  balancing speed, cost, success likelihood, and long-term
+                  residency goals.
+                </p>
+                <ul class="step-details">
+                  <li>Comprehensive case strategy document</li>
+                  <li>Primary and backup visa options outlined</li>
+                  <li>Detailed timeline and cost breakdown</li>
+                  <li>
+                    Language test preparation guidance (IELTS / PTE / OET)
+                  </li>
+                </ul>
+                <span class="step-timeline">⏱ Weeks 1–3</span>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step-num">03</div>
+              <div class="step-content">
+                <div class="step-phase">Preparation</div>
+                <div class="step-title">
+                  Document Collection &amp; Verification
+                </div>
+                <p class="step-desc">
+                  Immigration applications live and die on documentation. We
+                  provide a bespoke checklist and review every document before
+                  submission.
+                </p>
+                <ul class="step-details">
+                  <li>
+                    Police clearance certificates (all countries lived in)
+                  </li>
+                  <li>Skills assessment coordination (if required)</li>
+                  <li>Employment reference letters — we guide wording</li>
+                  <li>Educational credential evaluation</li>
+                  <li>Medical examination scheduling</li>
+                  <li>Translation of non-English documents</li>
+                </ul>
+                <span class="step-timeline">⏱ Weeks 3–10 (varies)</span>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step-num">04</div>
+              <div class="step-content">
+                <div class="step-phase">Application</div>
+                <div class="step-title">
+                  Lodgement &amp; Government Submission
+                </div>
+                <p class="step-desc">
+                  We prepare, review, and electronically submit your application
+                  to the relevant government authority — IRCC, UKVI, or the
+                  Australian DOHA.
+                </p>
+                <ul class="step-details">
+                  <li>Complete application review by a registered advisor</li>
+                  <li>Cover letter and supporting statements drafted</li>
+                  <li>Government fee payment guidance</li>
+                  <li>Biometrics enrollment assistance</li>
+                  <li>
+                    Expression of Interest (EOI) submission where required
+                  </li>
+                </ul>
+                <span class="step-timeline">⏱ Weeks 10–14</span>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step-num">05</div>
+              <div class="step-content">
+                <div class="step-phase">Monitoring</div>
+                <div class="step-title">
+                  Application Tracking &amp; Government Liaison
+                </div>
+                <p class="step-desc">
+                  We actively monitor your application and handle all government
+                  correspondence. If additional information is requested, we
+                  respond promptly and accurately.
+                </p>
+                <ul class="step-details">
+                  <li>Regular status updates (every 2 weeks minimum)</li>
+                  <li>Response to government requests for information</li>
+                  <li>Interview preparation if required</li>
+                  <li>Direct liaison with case officers where permitted</li>
+                </ul>
+                <span class="step-timeline">⏱ 2–12 months (processing)</span>
+              </div>
+            </div>
+
+            <div class="step reveal">
+              <div class="step-num">06</div>
+              <div class="step-content">
+                <div class="step-phase">Arrival</div>
+                <div class="step-title">
+                  Visa Grant &amp; Pre-Departure Support
+                </div>
+                <p class="step-desc">
+                  Once approved, we ensure you understand your visa conditions
+                  and help you plan your arrival — so day one in your new
+                  country goes smoothly.
+                </p>
+                <ul class="step-details">
+                  <li>Visa conditions explained in plain language</li>
+                  <li>Entry requirements and validity confirmation</li>
+                  <li>Settlement resources and community introductions</li>
+                  <li>Pathway to Permanent Residency planning</li>
+                  <li>Post-arrival check-in call</li>
+                </ul>
+                <span class="step-timeline"
+                  >⏱ Grant to departure: 4–8 weeks</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ELIGIBILITY -->
+    <section id="eligibility">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">Am I eligible?</div>
+          <h2 class="section-title">Common Eligibility Requirements</h2>
+          <p class="section-sub">
+            While every application is unique, these are the core criteria most
+            visa streams require. Book a free assessment for a definitive
+            answer.
+          </p>
+        </div>
+        <div class="elig-grid">
+          <div class="elig-card reveal">
+            <div class="elig-country">🇨🇦 Canada — Express Entry</div>
+            <div class="elig-route">Federal Skilled Worker Program</div>
+            <ul class="elig-list">
+              <li>
+                Minimum 1 year of skilled work experience (NOC TEER 0, 1, 2, or
+                3)
+              </li>
+              <li>Language proficiency: CLB 7+ in all four abilities</li>
+              <li>
+                Educational credential assessment (ECA) from a designated body
+              </li>
+              <li>Proof of settlement funds (unless offered a Canadian job)</li>
+              <li>
+                Admissibility — no serious criminal or medical inadmissibility
+              </li>
+              <li>
+                Comprehensive Ranking System (CRS) score competitive for current
+                draws
+              </li>
+            </ul>
+          </div>
+          <div class="elig-card reveal">
+            <div class="elig-country">🇬🇧 United Kingdom — Skilled Worker</div>
+            <div class="elig-route">Points-Based Immigration System</div>
+            <ul class="elig-list">
+              <li>Job offer from a UK Home Office licensed sponsor employer</li>
+              <li>Role must be at RQF Level 3 or above (A-level equivalent)</li>
+              <li>Salary of at least £26,200 or the going rate for the role</li>
+              <li>English language proficiency (B1 level CEFR)</li>
+              <li>Sufficient funds to support yourself (£1,270 in savings)</li>
+              <li>
+                70 points total achievable across all mandatory and tradeable
+                criteria
+              </li>
+            </ul>
+          </div>
+          <div class="elig-card reveal">
+            <div class="elig-country">🇦🇺 Australia — Subclass 189</div>
+            <div class="elig-route">Skilled Independent Visa</div>
+            <ul class="elig-list">
+              <li>
+                Occupation on the Medium and Long-term Strategic Skills List
+                (MLTSSL)
+              </li>
+              <li>
+                Positive skills assessment from the relevant assessing authority
+              </li>
+              <li>Age under 45 years at time of invitation</li>
+              <li>
+                English proficiency: Competent English (IELTS 6.0 in each band)
+              </li>
+              <li>Points score of at least 65 in SkillSelect</li>
+              <li>Meet health and character requirements</li>
+            </ul>
+          </div>
+          <div class="elig-card reveal">
+            <div class="elig-country">🇦🇺 Australia — Subclass 190</div>
+            <div class="elig-route">Skilled Nominated Visa</div>
+            <ul class="elig-list">
+              <li>Nomination by an Australian state or territory government</li>
+              <li>
+                Occupation on the relevant state's skilled occupation list
+              </li>
+              <li>
+                Commitment to live and work in the nominating state for 2 years
+              </li>
+              <li>Points score of at least 65 (nomination adds 5 points)</li>
+              <li>
+                English proficiency and positive skills assessment required
+              </li>
+              <li>Genuine intention to settle in the nominating state</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section id="why">
+      <div class="container">
+        <div class="why-header reveal">
+          <div class="section-label" style="color: var(--gold)">
+            Why Pathways Migration
+          </div>
+          <h2 class="section-title" style="color: #fff">
+            We exist for one reason.
+          </h2>
+          <p class="section-sub" style="color: rgba(255, 255, 255, 0.5)">
+            To get you across the border — legally, correctly, and as quickly as
+            the system allows.
+          </p>
+        </div>
+        <div class="why-grid">
+          <div class="why-card reveal">
+            <span class="why-icon">⚖️</span>
+            <div class="why-title">Registered &amp; Regulated</div>
+            <p class="why-desc">
+              Our consultants are registered with ICCRC (Canada), OISC (UK), and
+              MARA (Australia). No unregulated "consultants" — your case is
+              always in expert hands.
+            </p>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">🎯</span>
+            <div class="why-title">Three-Country Depth</div>
+            <p class="why-desc">
+              We don't service 50 countries superficially. We know Canada, the
+              UK, and Australia — their policies, their quirks, their processing
+              officers — intimately.
+            </p>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">📋</span>
+            <div class="why-title">No Surprises Pricing</div>
+            <p class="why-desc">
+              Fixed professional fees are agreed upfront. No hidden charges, no
+              unexpected invoices. You'll know exactly what you're paying before
+              signing anything.
+            </p>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">🔄</span>
+            <div class="why-title">Full Application Management</div>
+            <p class="why-desc">
+              We handle everything — from document checklists to government
+              submissions. You provide the information; we manage the
+              complexity.
+            </p>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">💬</span>
+            <div class="why-title">Dedicated Case Advisor</div>
+            <p class="why-desc">
+              You'll have one named advisor throughout your case — not a call
+              centre. They know your file and are reachable within one business
+              day.
+            </p>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">🏡</span>
+            <div class="why-title">Beyond the Visa</div>
+            <p class="why-desc">
+              We think about your permanent residency pathway from day one. Our
+              support doesn't end at visa grant — we're with you through the
+              next steps too.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta">
+      <div class="container">
+        <div class="cta-inner reveal">
+          <div class="section-label">Ready to begin?</div>
+          <h2 class="cta-title">
+            Your assessment takes 30 minutes.<br />The results last a lifetime.
+          </h2>
+          <p class="cta-sub">
+            Book a free, no-obligation consultation. We'll tell you exactly
+            which visa pathways you qualify for — and whether we're the right
+            team to get you there.
+          </p>
+          <div class="cta-actions">
+            <button class="btn-dark">Book Free Assessment</button>
+            <button class="btn-white">Download Our Guide</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">Pathways<span>Migration</span></div>
+      <div class="footer-copy">
+        © 2025 Pathways Migration Consultants · Canada · United Kingdom ·
+        Australia
+      </div>
+      <p class="footer-disclaimer">
+        This website provides general information only and does not constitute
+        legal advice. Immigration law is complex and subject to change. Always
+        seek advice from a registered immigration advisor before making any
+        decisions.
+      </p>
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const revealEls = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), 80);
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+      );
+      revealEls.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

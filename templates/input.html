@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Profile — JAPA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #5c3d1e;
+      --ink:   #3e2f1c;
+      --cream: #f5f0e8;
+      --warm:  #ede8dc;
+      --gold:  #a07848;
+      --gold-light: #c8a878;
+      --text:  #5c4a32;
+      --muted: #8c7355;
+      --border: rgba(160,133,106,0.35);
+    }
+    body {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      background: rgba(92,61,30,0.97);
+      padding: 1.1rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+    nav a.back {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: rgba(245,240,232,0.7);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--gold-light); }
+
+    /* LAYOUT */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+    .page-header {
+      margin-bottom: 2.5rem;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.2rem;
+    }
+    .page-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+    .page-header p {
+      margin-top: 0.6rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* FORM */
+    form { display: flex; flex-direction: column; gap: 2rem; }
+
+    .section {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.8rem 2rem;
+    }
+    .section-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .fields.single { grid-template-columns: 1fr; }
+
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    label .hint {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-left: 0.4rem;
+    }
+    input, select {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.65rem 0.9rem;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input:focus, select:focus { border-color: var(--gold); }
+    select option { background: var(--cream); }
+
+    /* SUBMIT */
+    .submit-row { display: flex; justify-content: flex-end; }
+    .btn-submit {
+      background: var(--navy);
+      color: var(--gold-light);
+      border: none;
+      padding: 0.95rem 2.8rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-submit:hover { background: var(--ink); transform: translateY(-1px); }
+
+    @media (max-width: 600px) {
+      .fields { grid-template-columns: 1fr; }
+      .page { padding: 2rem 1.2rem 4rem; }
+      nav { padding: 1rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">JAPA <span>pathways</span></a>
+  <a href="/" class="back">← Back to Home</a>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="page-label">Step 1 of 1 — Canada MVP</div>
+    <h1>Your Immigration Profile</h1>
+    <p>Fill in your details below. We'll calculate your CRS score and recommend the best pathway for you.</p>
+  </div>
+
+  <form method="POST" action="/input">
+
+    <!-- Personal -->
+    <div class="section">
+      <div class="section-title">Personal Details</div>
+      <div class="fields">
+        <div class="field">
+          <label for="name">Full Name <span class="hint">(optional)</span></label>
+          <input type="text" id="name" name="name" placeholder="e.g. Amara Johnson" />
+        </div>
+        <div class="field">
+          <label for="age">Age <span class="hint">(18 – 55)</span></label>
+          <input type="number" id="age" name="age" min="18" max="55" placeholder="e.g. 29" required />
+        </div>
+        <div class="field">
+          <label for="marital">Marital Status</label>
+          <select id="marital" name="marital" required>
+            <option value="" disabled selected>Select status</option>
+            <option value="single">Single</option>
+            <option value="married">Married / Common-law</option>
+            <option value="divorced">Divorced / Separated</option>
+            <option value="widowed">Widowed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="section">
+      <div class="section-title">Education</div>
+      <div class="fields">
+        <div class="field">
+          <label for="education">Highest Education Level</label>
+          <select id="education" name="education" required>
+            <option value="" disabled selected>Select level</option>
+            <option value="doctoral">Doctoral degree (PhD)</option>
+            <option value="masters">Master's degree / Professional degree</option>
+            <option value="bachelors">Bachelor's degree (3+ years)</option>
+            <option value="diploma_2">Post-secondary diploma (2 years)</option>
+            <option value="diploma_1">Post-secondary diploma (1 year)</option>
+            <option value="secondary">Secondary school (high school)</option>
+            <option value="none">Less than high school</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="section">
+      <div class="section-title">Language Proficiency</div>
+      <div class="fields">
+        <div class="field">
+          <label for="clb">CLB Level <span class="hint">(Canadian Language Benchmarks)</span></label>
+          <select id="clb" name="clb" required>
+            <option value="" disabled selected>Select CLB level</option>
+            <option value="10">CLB 10+ (IELTS 8.0+ / CELPIP 10+)</option>
+            <option value="9">CLB 9 (IELTS 7.5 / CELPIP 9)</option>
+            <option value="8">CLB 8 (IELTS 7.0 / CELPIP 8)</option>
+            <option value="7">CLB 7 (IELTS 6.5 / CELPIP 7)</option>
+            <option value="6">CLB 6 (IELTS 6.0 / CELPIP 6)</option>
+            <option value="5">CLB 5 (IELTS 5.5 / CELPIP 5)</option>
+            <option value="4">CLB 4 or below</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Work Experience -->
+    <div class="section">
+      <div class="section-title">Work Experience</div>
+      <div class="fields">
+        <div class="field">
+          <label for="ca_experience">Canadian Work Experience <span class="hint">(skilled, NOC 0/A/B)</span></label>
+          <select id="ca_experience" name="ca_experience" required>
+            <option value="" disabled selected>Select years</option>
+            <option value="0">None</option>
+            <option value="1">1 year</option>
+            <option value="2">2 years</option>
+            <option value="3">3 years</option>
+            <option value="4">4 years</option>
+            <option value="5">5+ years</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="foreign_experience">Foreign Work Experience <span class="hint">(outside Canada)</span></label>
+          <select id="foreign_experience" name="foreign_experience" required>
+            <option value="" disabled selected>Select years</option>
+            <option value="0">None</option>
+            <option value="1">1 year</option>
+            <option value="2">2 years</option>
+            <option value="3">3+ years</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Career -->
+    <div class="section">
+      <div class="section-title">Career Area</div>
+      <div class="fields">
+        <div class="field">
+          <label for="career">Your Career Field</label>
+          <select id="career" name="career" required>
+            <option value="" disabled selected>Select field</option>
+            <option value="tech">Technology / Engineering / IT</option>
+            <option value="health">Healthcare / Medical / Nursing</option>
+            <option value="trades">Skilled Trades (Electrical, Plumbing, Welding)</option>
+            <option value="business">Business / Finance / Accounting</option>
+            <option value="education">Education / Social Services</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="btn-submit">Calculate My Score →</button>
+    </div>
+
+  </form>
+</div>
+
+</body>
+</html>

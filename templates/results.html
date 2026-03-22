@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your CRS Results — JAPA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #5c3d1e;
+      --ink:   #3e2f1c;
+      --cream: #f5f0e8;
+      --warm:  #ede8dc;
+      --gold:  #a07848;
+      --gold-light: #c8a878;
+      --text:  #5c4a32;
+      --muted: #8c7355;
+      --border: rgba(160,133,106,0.35);
+    }
+    body {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      background: rgba(92,61,30,0.97);
+      padding: 1.1rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: rgba(245,240,232,0.7);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* LAYOUT */
+    .page { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .grid.three { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* CARDS */
+    .card {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.8rem;
+    }
+    .card-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-label::before {
+      content: '';
+      display: block;
+      width: 1.2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+    .card p { font-size: 0.9rem; line-height: 1.75; color: var(--text); }
+
+    /* CRS HERO */
+    .crs-hero {
+      background: var(--navy);
+      border-radius: 6px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .crs-main { flex: 1; }
+    .crs-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .crs-score {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--cream);
+    }
+    .crs-score span {
+      font-size: 1.2rem;
+      color: var(--gold-light);
+      font-family: 'Fira Code', monospace;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      margin-left: 0.5rem;
+    }
+    .crs-name {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.6);
+      margin-top: 0.5rem;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.4rem 1.2rem;
+      border-radius: 2px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-top: 0.8rem;
+      color: var(--cream);
+    }
+    .crs-breakdown { display: flex; flex-direction: column; gap: 0.7rem; min-width: 220px; }
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.75);
+    }
+    .breakdown-row .pts {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      font-weight: 400;
+    }
+    .breakdown-divider {
+      border: none;
+      border-top: 1px solid rgba(245,240,232,0.15);
+      margin: 0.3rem 0;
+    }
+    .breakdown-total {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--cream);
+      font-weight: 400;
+    }
+
+    /* SECTION HEADINGS */
+    .section-heading {
+      margin: 2.5rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-heading::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .section-heading span {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* RECOMMENDATION */
+    .rec-message {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding: 1rem 1.2rem;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+    .pathway-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .pathway-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .pathway-list li::before {
+      content: '→';
+      color: var(--gold);
+      font-family: 'Fira Code', monospace;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* TIMELINE */
+    .timeline-range {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .timeline-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* COSTS TABLE */
+    .cost-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .cost-table th {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cost-table td { padding: 0.55rem 0.5rem; border-bottom: 1px solid var(--border); color: var(--text); }
+    .cost-table td:last-child { text-align: right; font-family: 'Fira Code', monospace; color: var(--ink); }
+    .cost-table tr.total td {
+      font-weight: 700;
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      border-bottom: none;
+    }
+
+    /* DOCUMENTS */
+    .doc-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .doc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 0.7rem 0.9rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .doc-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+    }
+    .doc-check.required { background: var(--gold); color: var(--cream); }
+    .doc-check.optional { background: var(--border); color: var(--muted); border: 1px solid var(--border); }
+    .doc-info { flex: 1; }
+    .doc-name { font-size: 0.88rem; font-weight: 700; color: var(--ink); }
+    .doc-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; line-height: 1.5; }
+
+    /* ACTION BUTTONS */
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: var(--gold-light);
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--ink); }
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--navy);
+      padding: 0.9rem 2.2rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--navy); color: var(--cream); }
+
+    /* NOC / CAREER */
+    .noc-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.5rem; }
+    .noc-list li {
+      font-size: 0.85rem;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .noc-list li::before { content: '·'; color: var(--gold); font-size: 1.1rem; line-height: 1.2; }
+    .pnp-note {
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .grid, .grid.three { grid-template-columns: 1fr; }
+      .crs-hero { flex-direction: column; }
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .page { padding: 2rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">JAPA <span>pathways</span></a>
+  <div class="nav-links">
+    <a href="/input">← Recalculate</a>
+    <a href="/">Home</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- CRS SCORE HERO -->
+  <div class="crs-hero">
+    <div class="crs-main">
+      <div class="crs-label">Canada — CRS Score</div>
+      <div class="crs-score">
+        {{ crs.total }}<span>/ 1200</span>
+      </div>
+      {% if user.name %}
+      <div class="crs-name">{{ user.name }}</div>
+      {% endif %}
+      <div class="status-badge" style="background: {{ recommendation.colour }};">
+        {{ recommendation.status }} Profile
+      </div>
+    </div>
+
+    <div class="crs-breakdown">
+      <div class="breakdown-row">
+        <span>Age</span>
+        <span class="pts">{{ crs.age }}</span>
+      </div>
+      <div class="breakdown-row">
+        <span>Education</span>
+        <span class="pts">{{ crs.education }}</span>
+      </div>
+      <div class="breakdown-row">
+        <span>Language (CLB {{ user.clb }})</span>
+        <span class="pts">{{ crs.language }}</span>
+      </div>
+      <div class="breakdown-row">
+        <span>Canadian Experience</span>
+        <span class="pts">{{ crs.ca_experience }}</span>
+      </div>
+      <div class="breakdown-row">
+        <span>Skill Transferability</span>
+        <span class="pts">{{ crs.transferability }}</span>
+      </div>
+      <hr class="breakdown-divider" />
+      <div class="breakdown-total">
+        <span>Total CRS Score</span>
+        <span>{{ crs.total }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATION + TIMELINE -->
+  <div class="section-heading"><span>Immigration Pathway</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-label">Recommendation</div>
+      <div class="rec-message">{{ recommendation.message }}</div>
+      <ul class="pathway-list">
+        {% for p in recommendation.pathways %}
+        <li>{{ p }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">PR Timeline Estimate</div>
+      <div class="timeline-range">{{ timeline.range }}</div>
+      <div class="timeline-note">{{ timeline.note }}</div>
+
+      <div style="margin-top: 1.4rem;">
+        <div class="card-label" style="margin-bottom: 0.6rem;">FSW Eligibility</div>
+        {% if recommendation.fsw_eligible %}
+        <div style="color: #4a7c3f; font-size: 0.88rem; font-weight: 700;">✓ You meet Federal Skilled Worker minimum criteria</div>
+        {% else %}
+        <div style="color: #9c4040; font-size: 0.88rem; font-weight: 700;">✗ CLB 7+ and post-secondary education required for FSW</div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CAREER PATHWAY -->
+  <div class="section-heading"><span>Career Pathway Fit</span></div>
+  <div class="card">
+    <div class="card-label">Matching NOC Codes — {% set career_labels = {'tech': 'Technology', 'health': 'Healthcare', 'trades': 'Skilled Trades', 'business': 'Business & Finance', 'education': 'Education', 'other': 'General'} %}{{ career_labels.get(user.career, user.career | title) }}</div>
+    <ul class="noc-list">
+      {% for noc in recommendation.career_nocs %}
+      <li>{{ noc }}</li>
+      {% endfor %}
+    </ul>
+    <div class="pnp-note">
+      <strong>Recommended PNP streams:</strong> {{ recommendation.career_pnp }}
+    </div>
+  </div>
+
+  <!-- COST ESTIMATE -->
+  <div class="section-heading"><span>Cost Estimate</span></div>
+  <div class="card">
+    <div class="card-label">Immigration Cost Breakdown (CAD)</div>
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th style="text-align:right;">Low</th>
+          <th style="text-align:right;">High</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in costs %}
+        <tr>
+          <td>{{ c.item }}</td>
+          <td style="text-align:right; font-family:'Fira Code',monospace;">${{ '{:,}'.format(c.low) }}</td>
+          <td style="text-align:right; font-family:'Fira Code',monospace;">${{ '{:,}'.format(c.high) }}</td>
+        </tr>
+        {% endfor %}
+        <tr class="total">
+          <td>Total Estimate</td>
+          <td style="text-align:right; font-family:'Fira Code',monospace;">${{ '{:,}'.format(total_low) }}</td>
+          <td style="text-align:right; font-family:'Fira Code',monospace;">${{ '{:,}'.format(total_high) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOCUMENT CHECKLIST -->
+  <div class="section-heading"><span>Document Checklist</span></div>
+  <div class="card">
+    <div class="card-label">Required &amp; Recommended Documents</div>
+    <div style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem;">
+      <strong style="color: var(--gold);">■</strong> Required &nbsp;&nbsp;
+      <strong style="color: var(--border);">■</strong> Optional / Recommended
+    </div>
+    <div class="doc-list">
+      {% for doc in documents %}
+      <div class="doc-item">
+        <div class="doc-check {{ 'required' if doc.required else 'optional' }}">
+          {{ '✓' if doc.required else '○' }}
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">{{ doc.name }}</div>
+          <div class="doc-note">{{ doc.note }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions">
+    <a href="/input" class="btn-primary">Recalculate Score</a>
+    <a href="/" class="btn-outline">Back to Home</a>
+  </div>
+
+</div>
+
+</body>
+</html>
