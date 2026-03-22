@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 
+import os
+
 app = Flask(__name__)
-app.secret_key = 'japa-mvp-2026'
+app.secret_key = os.environ.get('SECRET_KEY', 'japa-mvp-2026')
 
 
 # ── CRS SCORE CALCULATOR ─────────────────────────────────────────────────────
